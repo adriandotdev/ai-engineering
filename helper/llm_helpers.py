@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key = os.getenv("API_KEY")
+api_model = os.getenv("AI_MODEL")
 
 client = OpenAI(
     base_url='https://openrouter.ai/api/v1',
@@ -26,4 +27,15 @@ def get_response(model: str, temperature: float, max_tokens: int, messages: list
         max_completion_tokens = max_tokens,
         messages = messages
     )
+    return response.choices[0].message.content
+
+def get_prompt_response(prompt: str):
+    response = client.chat.completions.create(
+            model = api_model,
+            messages = [{
+                "role": "user",
+                "content": prompt
+            }],
+            reasoning_effort="low"
+        )
     return response.choices[0].message.content
