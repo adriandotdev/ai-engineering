@@ -1,15 +1,12 @@
 import os
 from openai import OpenAI
-from typing import TypedDict
 from dotenv import load_dotenv
+from helper.llm_helpers import get_response
 
 load_dotenv()
 
 api_key = os.getenv("API_KEY")
 ai_model = os.getenv("AI_MODEL")
-
-# Define the model to use
-model = "gpt-4o-mini"
 
 # Define the client
 client = OpenAI( 
@@ -18,22 +15,7 @@ client = OpenAI(
 )
 
 # Start coding here
-"""
-NOTE: list[...] only woks on Python 3.9 onwards version
-"""
-class Conversation(TypedDict):
-    role: str
-    content: str
-    
-def get_response(model: str, temperature: float, max_tokens: int, messages: list[Conversation]):
-    response = client.chat.completions.create(
-        model = model,
-        temperature = temperature,
-        max_completion_tokens = max_tokens,
-        messages = messages
-    )
-    return response.choices[0].message.content
-    
+
 system_prompt = f"""
     You are a virtual Parisian expert travel guide of Peterman Reality Tours for the culturally rich city of Paris. You will respond intelligently
     providing a more engaging and immersive travel planning experience. You will deliver valuable insights into the city's iconic landmarks and hidden treasures.
@@ -90,7 +72,7 @@ try:
         print("\nPlease wait...")
         conversation.append({"role": "user", "content": client_query})
         
-        assistant_response = get_response(ai_model, 0.0, 100, conversation)
+        assistant_response = get_response(ai_model, 0.0, 150, conversation)
     
         conversation.append({"role": "assistant", "content": assistant_response})
 
