@@ -1,6 +1,6 @@
-# Prompt Engineering
+# AI Engineering
 
-A set of small Python scripts for practicing prompt engineering techniques. Each script sends one or more prompts to an LLM through [OpenRouter](https://openrouter.ai) (using the OpenAI Python SDK) and prints the responses.
+A hands-on repo for learning AI engineering: building applications on top of large language models (LLMs). It starts with prompt engineering, using small Python scripts to practice the core techniques. Each script sends one or more prompts to an LLM through [OpenRouter](https://openrouter.ai) (using the OpenAI Python SDK) and prints the responses.
 
 ## Techniques covered
 
