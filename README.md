@@ -32,6 +32,7 @@ The scripts in [hugging_face/](hugging_face/) run models locally with `transform
 | [dynamic_category_assignment.py](hugging_face/dynamic_category_assignment.py) | `zero-shot-classification`, `facebook/bart-large-mnli` | Assigning categories chosen at run time, with no training |
 | [extractive_summarization.py](hugging_face/extractive_summarization.py) | `text-generation`, `Qwen/Qwen2.5-1.5B-Instruct` | Summarizing a text by prompting a small chat model |
 | [abstractive_summarization.py](hugging_face/abstractive_summarization.py) | `text-generation`, `Qwen/Qwen2.5-1.5B-Instruct` | Summarizing "in your own words" with the same model |
+| [document_qa.py](hugging_face/document_qa.py) | `question-answering`, `distilbert-base-cased-distilled-squad` | Extractive question answering over a PDF ([employee_policy.pdf](employee_policy.pdf)): text is read with `pypdf`, and the model returns the span of the document that answers each question |
 
 ## Setup
 
@@ -42,6 +43,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install openai python-dotenv
 pip install transformers torch   # only for the hugging_face scripts
+pip install pypdf                # only for hugging_face/document_qa.py
 ```
 
 Create a `.env` file in the project root (it is git-ignored):
@@ -67,6 +69,12 @@ python text_analysis.py
 python text_transformation.py
 python virtual_paris_tourist_chatbot.py   # type "exit" to quit
 python hugging_face/sentiment_analysis.py # any script in hugging_face/ runs the same way
+```
+
+The exception is `document_qa.py`: it opens the PDF at `../employee_policy.pdf`, so run it from inside `hugging_face/`:
+
+```bash
+cd hugging_face && python document_qa.py
 ```
 
 ## Notes
